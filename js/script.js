@@ -5,8 +5,9 @@ const closeButton = document.querySelector('.popup__close');
 const form = document.querySelector('.popup__form');
 const inputName = document.querySelector('.popup__input_type_name');
 const inputLink = document.querySelector('.popup__input_type_link-url');
-const editButton = document.querySelector('.popup-edit__button');
-
+const editButton = document.querySelector('.user-info__place-edit');
+const editPopUp = document.querySelector('.popup-edit');
+const closeEditPopUp = document.querySelector('.popup-edit__close');
 
 // Add&Remove Like
 function addLike(event) {
@@ -72,6 +73,17 @@ const renderPlaceCard = function (name, link) {
 
 // Можно лучше (тоже настоятельная рекомендация)
 // Эти два метода можно заменить одним если использовать classList.toggle
+
+
+//Open EditPopup
+editButton.addEventListener('click', () => {
+  editPopUp.classList.add('popup-edit_is-opened');
+});
+
+//Close EditPopup
+closeEditPopUp.addEventListener('click', () => {
+  editPopUp.classList.remove('popup-edit_is-opened');
+});
 
 // Open PopUp form
 addButton.addEventListener('click', () => {
