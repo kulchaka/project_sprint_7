@@ -1,0 +1,20 @@
+.user-info__place-edit {
+    margin-top: 24px;
+    width: 38px;
+    height: 18px;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 15px;
+    text-align: center;
+    background-color: transparent;
+    border: 1px solid white;
+    cursor: pointer;
+    color: #FFFFFF;
+}
+
+.user-info__place-edit:hover {
+    background-color: white;
+    color: black;
+}
