@@ -5,6 +5,7 @@ const closeButton = document.querySelector('.popup__close');
 const form = document.querySelector('.popup__form');
 const inputName = document.querySelector('.popup__input_type_name');
 const inputLink = document.querySelector('.popup__input_type_link-url');
+const editButton = document.querySelector('.popup-edit__button');
 
 
 // Add&Remove Like
