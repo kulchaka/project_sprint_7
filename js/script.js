@@ -24,6 +24,7 @@ function removeCard(event) {
   placesList.removeChild(placeCrd);
 };
 
+//Create Card
 const createPlaceCard = function (name, link) {
   const markup = `<div class="place-card">
   <div
