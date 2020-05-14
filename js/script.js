@@ -11,7 +11,30 @@ const closeEditPopUp = document.querySelector('.popup-edit__close');
 const popupImage = document.querySelector('.popup-image');
 const closePopupImage = document.querySelector('.popup-image__close');
 const popupImgPicture = document.querySelector('.popup-image__content');
+const inputEditName = document.querySelector('.popup-edit__input_type_name');
+const inputEditDscr = document.querySelector('.popup-edit__input-dscr');
+const userName = document.querySelector('.user-info__name');
+const userInfo = document.querySelector('.user-info__job');
+const saveUserInfo = document.querySelector('.popup-edit__button');
 
+
+
+//Get Inputs Name & Info
+inputEditName.setAttribute('value', `${userName.textContent}`);
+inputEditDscr.setAttribute('value', `${userInfo.textContent}`);
+
+//Add Inputs Name & Info
+saveUserInfo.addEventListener('click', (eve) => {
+  eve.preventDefault();
+
+  //Add new inputs
+  userName.textContent = inputEditName.value;
+  userInfo.textContent = inputEditDscr.value;
+
+  //close PopUp window after click
+  editPopUp.classList.remove('popup-edit_is-opened');
+
+});
 
 
 // Add&Remove Like
@@ -62,7 +85,7 @@ const createPlaceCard = function (name, link) {
   elem.querySelector('.place-card__name').textContent = name;
   elem.querySelector('.place-card__image').setAttribute('style', `background-image: url(${link})`);
   elem.querySelector('.place-card__image').dataset.url = link;
-  const imgLink = elem.querySelector('.place-card__image').dataset.url;
+
 
 
 
