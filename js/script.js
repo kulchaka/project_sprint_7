@@ -8,6 +8,11 @@ const inputLink = document.querySelector('.popup__input_type_link-url');
 const editButton = document.querySelector('.user-info__place-edit');
 const editPopUp = document.querySelector('.popup-edit');
 const closeEditPopUp = document.querySelector('.popup-edit__close');
+const popupImage = document.querySelector('.popup-image');
+const closePopupImage = document.querySelector('.popup-image__close');
+const popupImgPicture = document.querySelector('.popup-image__content');
+
+
 
 // Add&Remove Like
 function addLike(event) {
@@ -43,7 +48,8 @@ const createPlaceCard = function (name, link) {
   elem.insertAdjacentHTML('afterbegin', markup);
 
 
-
+  //Open Image Pop-UP
+  elem.querySelector('.place-card__image').addEventListener('click', openPopupImg);
 
   // Add&Remove Like
 
@@ -55,6 +61,8 @@ const createPlaceCard = function (name, link) {
   // Лучше сначала настроить всю карту до конца, а потом ставить слушатели.
   elem.querySelector('.place-card__name').textContent = name;
   elem.querySelector('.place-card__image').setAttribute('style', `background-image: url(${link})`);
+  elem.querySelector('.place-card__image').dataset.url = link;
+  const imgLink = elem.querySelector('.place-card__image').dataset.url;
 
 
 
@@ -67,6 +75,7 @@ const createPlaceCard = function (name, link) {
 // const renderPlaceCard = (name, link) => {....};
 const renderPlaceCard = function (name, link) {
   const newPlaceList = createPlaceCard(name, link);
+
   placesList.appendChild(newPlaceList);
 };
 
@@ -75,6 +84,18 @@ const renderPlaceCard = function (name, link) {
 // Можно лучше (тоже настоятельная рекомендация)
 // Эти два метода можно заменить одним если использовать classList.toggle
 
+
+//Open Image Pop-UP
+function openPopupImg(event) {
+  popupImage.classList.add('popup-image_is-opened');
+  popupImgPicture.setAttribute('style', `background-image: url(${event.target.dataset.url})`);
+
+}
+
+//Close Image Pop-UP
+closePopupImage.addEventListener('click', () => {
+  popupImage.classList.remove('popup-image_is-opened');
+});
 
 //Open EditPopup
 editButton.addEventListener('click', () => {
