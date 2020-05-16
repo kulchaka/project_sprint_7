@@ -5,6 +5,7 @@
 @import url(./__input/popup-edit__input.css);
 @import url(./__button/popup-edit__button.css);
 @import url(./_is-opened/popup-edit_is-opened.css);
+@import url(./__error/popup-edit__error.css);
 
 .popup-edit {
   position: fixed;

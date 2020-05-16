@@ -15,8 +15,50 @@ const inputEditName = document.querySelector('.popup-edit__input_type_name');
 const inputEditDscr = document.querySelector('.popup-edit__input-dscr');
 const userName = document.querySelector('.user-info__name');
 const userInfo = document.querySelector('.user-info__job');
-const saveUserInfo = document.querySelector('.popup-edit__button');
+const editInfoButton = document.querySelector('.popup-edit__button');
+const inputsEdit = document.querySelector('.popup-edit__input');
 
+
+//Active Button
+
+//EditButton
+document.querySelectorAll('.popup-edit__form').forEach((elem) => {
+  elem.addEventListener('input', (event) => {
+    if (elem.checkValidity()) {
+      editInfoButton.classList.add('popup-edit__button_validate');
+    } else {
+      editInfoButton.classList.remove('popup-edit__button_validate');
+    }
+  });
+});
+
+//AddButton
+document.querySelectorAll('.popup__form').forEach((elem) => {
+  elem.addEventListener('input', (event) => {
+    if (elem.checkValidity()) {
+      document.querySelector('.popup__button').classList.add('popup__button_validate');
+    } else {
+      document.querySelector('.popup__button').classList.remove('popup__button_validate');
+    }
+  });
+});
+
+//valid
+const errorElem = inputsEdit.parentNode.querySelector(`#${inputsEdit.id}-error`);
+
+
+
+inputsEdit.addEventListener('input', (event) => {
+  field = event.target;
+  // console.log(field);
+  if (field.value.length < 2 || field.value.length > 30) {
+    field.setCustomValidity('Должно быть от 2 до 30 символов');
+  } else {
+    field.setCustomValidity('');
+  }
+
+  errorElem.textContent = field.validationMessage;
+});
 
 
 //Get Inputs Name & Info
@@ -24,7 +66,7 @@ inputEditName.setAttribute('value', `${userName.textContent}`);
 inputEditDscr.setAttribute('value', `${userInfo.textContent}`);
 
 //Add Inputs Name & Info
-saveUserInfo.addEventListener('click', (eve) => {
+editInfoButton.addEventListener('click', (eve) => {
   eve.preventDefault();
 
   //Add new inputs

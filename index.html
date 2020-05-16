@@ -44,12 +44,14 @@
           <form class="popup__form" name="new">
             <input
               type="text"
+              required
               name="name"
               class="popup__input popup__input_type_name"
               placeholder="Название"
             />
             <input
               type="text"
+              required
               name="link"
               class="popup__input popup__input_type_link-url"
               placeholder="Ссылка на картинку"
@@ -64,19 +66,35 @@
           <img src="./images/close.svg" alt="" class="popup-edit__close" />
           <h3 class="popup-edit__title">Редактировать профиль</h3>
           <form class="popup-edit__form" name="new">
-            <input
-              type="text"
-              name="name"
-              class="popup-edit__input popup-edit__input_type_name"
-              placeholder="Имя"
-            />
-            <input
-              type="text"
-              name="link"
-              class="popup-edit__input popup-edit__input-dscr"
-              placeholder="О себе"
-            />
-            <button type class="button popup-edit__button">Сохранить</button>
+            <div class="input-container">
+              <input
+                id="user-name"
+                type="text"
+                minlength="2"
+                maxlength="30"
+                required
+                name="name"
+                class="popup-edit__input popup-edit__input_type_name"
+                placeholder="Имя"
+              />
+              <span id="user-name-error" class="popup-edit__error"></span>
+            </div>
+            <div class="input-container">
+              <input
+                id="user-name"
+                type="text"
+                minlength="2"
+                maxlength="30"
+                required
+                name="link"
+                class="popup-edit__input popup-edit__input-dscr"
+                placeholder="О себе"
+              />
+              <span id="user-name-error" class="popup-edit__error"></span>
+            </div>
+            <button id="button" type class="button popup-edit__button">
+              Сохранить
+            </button>
           </form>
         </div>
       </div>
