@@ -16,13 +16,21 @@ const inputEditDscr = document.querySelector('.popup-edit__input-dscr');
 const userName = document.querySelector('.user-info__name');
 const userInfo = document.querySelector('.user-info__job');
 const editInfoButton = document.querySelector('.popup-edit__button');
-const inputsEdit = document.querySelector('.popup-edit__input');
+const inputsNameEdit = document.querySelector('.popup-edit__input_type_name');
+const inputsInfoEdit = document.querySelector('.popup-edit__input-dscr');
+const errorPopupName = document.querySelector('.popup__name-error');
+const errorPopupLink = document.querySelector('.popup__link-error');
+const errorNameElem = document.querySelector('.popup-edit__name-error');
+const errorInfoElem = document.querySelector('.popup-edit__info-error');
 
 
 //Active Button
 
 //EditButton
 document.querySelectorAll('.popup-edit__form').forEach((elem) => {
+
+  editInfoButton.classList.add('popup-edit__button_validate');
+
   elem.addEventListener('input', (event) => {
     if (elem.checkValidity()) {
       editInfoButton.classList.add('popup-edit__button_validate');
@@ -43,30 +51,84 @@ document.querySelectorAll('.popup__form').forEach((elem) => {
   });
 });
 
-//valid
-const errorElem = inputsEdit.parentNode.querySelector(`#${inputsEdit.id}-error`);
+//Validation
+// const errorElem = inputsEdit.parentNode.querySelector(`#${inputsEdit.id}-error`);
 
+// console.log(errorElem);
 
+const errorMessages = {
+  empty: 'Это обязательное поле',
+  wrongLength: 'Должно быть от 2 до 30 символов',
+  wrongLink: 'Здесь должна быть ссылка'
+};
 
-inputsEdit.addEventListener('input', (event) => {
+//Card Add Form
+inputName.addEventListener('input', (event) => {
+  field = event.target;
+  if (field.value.length == 0) {
+    field.setCustomValidity(errorMessages.empty);
+  } else if (field.value.length < 2 || field.value.length > 30) {
+    field.setCustomValidity(errorMessages.wrongLength);
+  } else {
+    field.setCustomValidity('');
+  }
+  errorPopupName.textContent = field.validationMessage;
+});
+
+inputLink.addEventListener('input', (event) => {
+  field = event.target;
+  if (field.value.length == 0) {
+    field.setCustomValidity(errorMessages.empty);
+  } else if (field.value.length < 2 || field.value.length > 30) {
+    field.setCustomValidity(errorMessages.wrongLength);
+  } else {
+    field.setCustomValidity('');
+  }
+  errorPopupLink.textContent = field.validationMessage;
+});
+
+// Edit Form
+inputsNameEdit.addEventListener('input', (event) => {
   field = event.target;
   // console.log(field);
-  if (field.value.length < 2 || field.value.length > 30) {
-    field.setCustomValidity('Должно быть от 2 до 30 символов');
+
+  //Empty or Wrong Length
+  if (field.value.length == 0) {
+    field.setCustomValidity(errorMessages.empty);
+  } else if (field.value.length < 2 || field.value.length > 30) {
+    field.setCustomValidity(errorMessages.wrongLength);
   } else {
     field.setCustomValidity('');
   }
 
-  errorElem.textContent = field.validationMessage;
+
+
+  errorNameElem.textContent = field.validationMessage;
+});
+
+inputsInfoEdit.addEventListener('input', (event) => {
+  field = event.target;
+  // console.log(field);
+
+  //Empty or Wrong Length
+  if (field.value.length == 0) {
+    field.setCustomValidity(errorMessages.empty);
+  } else if (field.value.length < 2 || field.value.length > 30) {
+    field.setCustomValidity(errorMessages.wrongLength);
+  } else {
+    field.setCustomValidity('');
+  }
+
+  errorInfoElem.textContent = field.validationMessage;
 });
 
 
-//Get Inputs Name & Info
+//Get Inputs Edit Name & Info
 inputEditName.setAttribute('value', `${userName.textContent}`);
 inputEditDscr.setAttribute('value', `${userInfo.textContent}`);
 
-//Add Inputs Name & Info
-editInfoButton.addEventListener('click', (eve) => {
+//Add Inputs Edit Name & Info
+document.querySelector('.popup-edit__form').addEventListener('submit', (eve) => {
   eve.preventDefault();
 
   //Add new inputs
@@ -89,8 +151,7 @@ function removeCard(event) {
   // closest -- отлично!
   const placeCrd = event.currentTarget.closest('.place-card');
   // console.log(placeCrd);
-  // Можно лучше
-  // Перед удалением элемента снять слушатели
+
   placesList.removeChild(placeCrd);
 };
 
@@ -122,38 +183,26 @@ const createPlaceCard = function (name, link) {
 
   // Delete card
   elem.querySelector('.place-card__delete-icon').addEventListener('click', removeCard);
-  // Можно лучше
-  // Лучше сначала настроить всю карту до конца, а потом ставить слушатели.
+
   elem.querySelector('.place-card__name').textContent = name;
   elem.querySelector('.place-card__image').setAttribute('style', `background-image: url(${link})`);
   elem.querySelector('.place-card__image').dataset.url = link;
-
-
-
 
   return elem.firstElementChild;
 
 };
 
-// Можно лучше
-// Стрелочные функции
-// const renderPlaceCard = (name, link) => {....};
 const renderPlaceCard = function (name, link) {
   const newPlaceList = createPlaceCard(name, link);
 
   placesList.appendChild(newPlaceList);
 };
 
-
-
-// Можно лучше (тоже настоятельная рекомендация)
-// Эти два метода можно заменить одним если использовать classList.toggle
-
-
 //Open Image Pop-UP
 function openPopupImg(event) {
   popupImage.classList.add('popup-image_is-opened');
-  popupImgPicture.setAttribute('style', `background-image: url(${event.target.dataset.url})`);
+  console.log(event.target.dataset.url);
+  document.querySelector('.popup-image__picture').setAttribute('src', `${event.target.dataset.url}`);
 
 }
 
@@ -182,18 +231,28 @@ closeButton.addEventListener('click', () => {
   popApp.classList.remove('popup_is-opened');
 });
 
-// Forms-inputs
+// Forms - inputs
+// form.addEventListener('submit', (event) => {
+//   event.preventDefault();
+//   renderPlaceCard(inputName.value, inputLink.value);
+//   // Можно лучше
+//   // используйте метод формы reset()
+//   inputName.value = '';
+//   inputLink.value = '';
+
+//   popApp.classList.remove('popup_is-opened');
+//   document.querySelector('.popup__button').classList.remove('popup__button_validate');
+
+// });
+
+//Empty Form 
 form.addEventListener('submit', (event) => {
   event.preventDefault();
   renderPlaceCard(inputName.value, inputLink.value);
-  // Можно лучше
-  // используйте метод формы reset()
-  inputName.value = '';
-  inputLink.value = '';
-
-
+  if (!(inputsNameEdit.checkValidity())) {
+    console.log('OK');
+  }
   popApp.classList.remove('popup_is-opened');
-
 });
 
 function dataLoading(arr) {
@@ -203,22 +262,3 @@ function dataLoading(arr) {
 }
 
 dataLoading(initialCards);
-
-// Здравствуйте
-// ## Итог
-
-// - код работает, нет синтаксических и других ошибок
-// - функционал, перечисленный в задании, работает (при перезагрузке на страницу добавляются
-//   10 карточек, форма открывается и закрывается, можно добавить, удалить и лайкнуть карточку)
-// - функционал работает без ошибок
-// - карточку можно добавить нажав Enter, находясь в одном из текстовых полей
-// - верное использование `let` и `const`
-// - функции, декларированные как `function functionName() {}` не вызываются до того, как были объявлены
-
-// Работа принята
-
-// Можно лучше
-
-// 1. const functionName = (params) => {....}
-//
-// 2. Не забывайте удалять слушатели с удаляемых элементов
