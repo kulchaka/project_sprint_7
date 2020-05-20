@@ -24,6 +24,9 @@ const errorNameElem = document.querySelector('.popup-edit__name-error');
 const errorInfoElem = document.querySelector('.popup-edit__info-error');
 
 
+
+
+
 //Active Button
 
 //EditButton
@@ -79,8 +82,6 @@ inputLink.addEventListener('input', (event) => {
   field = event.target;
   if (field.value.length == 0) {
     field.setCustomValidity(errorMessages.empty);
-  } else if (field.value.length < 2 || field.value.length > 30) {
-    field.setCustomValidity(errorMessages.wrongLength);
   } else {
     field.setCustomValidity('');
   }
@@ -143,13 +144,16 @@ document.querySelector('.popup-edit__form').addEventListener('submit', (eve) => 
 
 // Add&Remove Like
 function addLike(event) {
+  // console.log(event.target);
+  // event.target.classList.add('place-card__like-icon_liked');
   event.target.classList.toggle('place-card__like-icon_liked');
+
 };
 
 // Delete card
 function removeCard(event) {
-  // closest -- отлично!
-  const placeCrd = event.currentTarget.closest('.place-card');
+
+  const placeCrd = event.target.closest('.place-card');
   // console.log(placeCrd);
 
   placesList.removeChild(placeCrd);
@@ -158,10 +162,7 @@ function removeCard(event) {
 //Create Card
 const createPlaceCard = function (name, link) {
   const markup = `<div class="place-card">
-  <div
-    class="place-card__image"
-
-  >
+  <div class="place-card__image">
     <button class="place-card__delete-icon"></button>
   </div>
   <div class="place-card__description">
@@ -174,16 +175,6 @@ const createPlaceCard = function (name, link) {
   elem.insertAdjacentHTML('afterbegin', markup);
 
 
-  //Open Image Pop-UP
-  elem.querySelector('.place-card__image').addEventListener('click', openPopupImg);
-
-  // Add&Remove Like
-
-  elem.querySelector('.place-card__like-icon').addEventListener('click', addLike);
-
-  // Delete card
-  elem.querySelector('.place-card__delete-icon').addEventListener('click', removeCard);
-
   elem.querySelector('.place-card__name').textContent = name;
   elem.querySelector('.place-card__image').setAttribute('style', `background-image: url(${link})`);
   elem.querySelector('.place-card__image').dataset.url = link;
@@ -192,16 +183,39 @@ const createPlaceCard = function (name, link) {
 
 };
 
+
+
 const renderPlaceCard = function (name, link) {
   const newPlaceList = createPlaceCard(name, link);
 
   placesList.appendChild(newPlaceList);
 };
 
+//Click PlacesList Elements
+placesList.addEventListener('click', function (event) {
+
+  //Open Image Pop-UP
+  if (event.target.classList.contains('place-card__image')) {
+    openPopupImg(event);
+  }
+
+  // Add&Remove Like
+  if (event.target.classList.contains('place-card__like-icon')) {
+    addLike(event);
+  }
+
+  //Remove Card
+  if (event.target.classList.contains('place-card__delete-icon')) {
+    removeCard(event);
+  }
+
+});
+
+
 //Open Image Pop-UP
 function openPopupImg(event) {
   popupImage.classList.add('popup-image_is-opened');
-  console.log(event.target.dataset.url);
+  // console.log(event.target.dataset.url);
   document.querySelector('.popup-image__picture').setAttribute('src', `${event.target.dataset.url}`);
 
 }
@@ -219,6 +233,7 @@ editButton.addEventListener('click', () => {
 //Close EditPopup
 closeEditPopUp.addEventListener('click', () => {
   editPopUp.classList.remove('popup-edit_is-opened');
+  // document.querySelector('.popup-edit__form').reset();
 });
 
 // Open PopUp form
@@ -229,31 +244,26 @@ addButton.addEventListener('click', () => {
 // Close PopUp form
 closeButton.addEventListener('click', () => {
   popApp.classList.remove('popup_is-opened');
+  document.querySelector('.popup__form').reset();
 });
 
-// Forms - inputs
-// form.addEventListener('submit', (event) => {
-//   event.preventDefault();
-//   renderPlaceCard(inputName.value, inputLink.value);
-//   // Можно лучше
-//   // используйте метод формы reset()
-//   inputName.value = '';
-//   inputLink.value = '';
-
-//   popApp.classList.remove('popup_is-opened');
-//   document.querySelector('.popup__button').classList.remove('popup__button_validate');
-
-// });
-
-//Empty Form 
+//Send Form 
 form.addEventListener('submit', (event) => {
   event.preventDefault();
+
+  isFormValid(event.target);
+
   renderPlaceCard(inputName.value, inputLink.value);
-  if (!(inputsNameEdit.checkValidity())) {
-    console.log('OK');
-  }
+
   popApp.classList.remove('popup_is-opened');
+  document.querySelector('.popup__form').reset();
 });
+
+//is Form Valid
+function isFormValid(form) {
+  const inputs = [...form.elements];
+  console.log(inputs);
+}
 
 function dataLoading(arr) {
   arr.forEach((datas) => {
