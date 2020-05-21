@@ -22,8 +22,13 @@ const errorPopupName = document.querySelector('.popup__name-error');
 const errorPopupLink = document.querySelector('.popup__link-error');
 const errorNameElem = document.querySelector('.popup-edit__name-error');
 const errorInfoElem = document.querySelector('.popup-edit__info-error');
+const submit = document.querySelector('#button');
 
-
+const errorMessages = {
+  empty: 'Это обязательное поле',
+  wrongLength: 'Должно быть от 2 до 30 символов',
+  wrongLink: 'Здесь должна быть ссылка'
+};
 
 
 
@@ -54,16 +59,6 @@ document.querySelectorAll('.popup__form').forEach((elem) => {
   });
 });
 
-//Validation
-// const errorElem = inputsEdit.parentNode.querySelector(`#${inputsEdit.id}-error`);
-
-// console.log(errorElem);
-
-const errorMessages = {
-  empty: 'Это обязательное поле',
-  wrongLength: 'Должно быть от 2 до 30 символов',
-  wrongLink: 'Здесь должна быть ссылка'
-};
 
 //Card Add Form
 inputName.addEventListener('input', (event) => {
@@ -245,25 +240,55 @@ addButton.addEventListener('click', () => {
 closeButton.addEventListener('click', () => {
   popApp.classList.remove('popup_is-opened');
   document.querySelector('.popup__form').reset();
+  document.querySelector('.popup__button').classList.remove('popup__button_validate');
 });
+
 
 //Send Form 
-form.addEventListener('submit', (event) => {
+form.addEventListener('submit', sendForm);
+
+function sendForm(event) {
   event.preventDefault();
 
-  isFormValid(event.target);
+  const inputs = [...form.elements]
 
-  renderPlaceCard(inputName.value, inputLink.value);
+  let isValidForm = true;
 
-  popApp.classList.remove('popup_is-opened');
-  document.querySelector('.popup__form').reset();
-});
+  inputs.forEach((elem) => {
+    if (elem.id !== submit.id) {
+      if (!validate(elem)) isValidForm = false;
+    }
+  });
 
-//is Form Valid
-function isFormValid(form) {
-  const inputs = [...form.elements];
-  console.log(inputs);
+  if (isValidForm) {
+    console.log('OK');
+    renderPlaceCard(inputName.value, inputLink.value);
+    popApp.classList.remove('popup_is-opened');
+    document.querySelector('.popup__form').reset();
+    document.querySelector('.popup__button').classList.remove('popup__button_validate');
+  } else {
+    console.log('NO!!!');
+    return false;
+  }
 }
+
+//Validation
+function validate(element) {
+  // console.log(element.id);
+  const errorElem = document.querySelector(`#error-${element.id}`);
+  // console.log(errorElem);
+  if (!element.checkValidity()) {
+    errorElem.textContent = errorMessages.empty;
+    // console.log(errorElem.textContent);
+    return false;
+  }
+  // else if (inputLink.type !== 'url') {
+  //   errorPopupLink.textContent = errorMessages.wrongLink;
+  //   return false;
+  // }
+  return true;
+}
+
 
 function dataLoading(arr) {
   arr.forEach((datas) => {
