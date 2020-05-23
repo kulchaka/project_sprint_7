@@ -18,9 +18,17 @@
           <div class="user-info__data">
             <h1 class="user-info__name">Jaques Causteau</h1>
             <p class="user-info__job">Sailor, Researcher</p>
-            <button type class="user-info__place-edit">Edit</button>
+            <button
+              data-id="popup-edit"
+              type="submit"
+              class="user-info__place-edit"
+            >
+              Edit
+            </button>
           </div>
-          <button class="button user-info__button">+</button>
+          <button data-id="popup" class="button user-info__button">
+            +
+          </button>
         </div>
       </div>
       <div class="places-list root__section">
@@ -39,10 +47,16 @@
       <!-- Pop-Up Add -->
       <div class="popup">
         <div class="popup__content">
-          <img src="./images/close.svg" alt="" class="popup__close" />
+          <img
+            data-id="popup"
+            src="./images/close.svg"
+            alt=""
+            class="popup__close"
+          />
           <h3 class="popup__title">Новое место</h3>
           <form id="form" novalidate class="popup__form" name="new">
             <input
+              data-id="popup__name"
               id="name"
               type="text"
               required
@@ -50,8 +64,9 @@
               class="popup__input popup__input_type_name"
               placeholder="Название"
             />
-            <span id="error-name" class="popup__name-error"></span>
+            <span id="error-name" class="popup-error popup__name-error"></span>
             <input
+              data-id="popup__link"
               id="link"
               type="url"
               required
@@ -59,8 +74,13 @@
               class="popup__input popup__input_type_link-url"
               placeholder="Ссылка на картинку"
             />
-            <span id="error-link" class="popup__link-error"></span>
-            <button id="button" type="submit" class="button popup__button">
+            <span id="error-link" class="popup-error popup__link-error"></span>
+            <button
+              id="button"
+              data-name="popup"
+              type="submit"
+              class="button popup__button"
+            >
               +
             </button>
           </form>
@@ -69,11 +89,17 @@
       <!-- Pop-Up Edit -->
       <div class="popup-edit">
         <div class="popup-edit__content">
-          <img src="./images/close.svg" alt="" class="popup-edit__close" />
+          <img
+            data-id="popup-edit"
+            src="./images/close.svg"
+            alt=""
+            class="popup-edit__close"
+          />
           <h3 class="popup-edit__title">Редактировать профиль</h3>
           <form class="popup-edit__form" name="new">
             <div class="input-container">
               <input
+                data-id="popup-edit__name"
                 id="user-name"
                 type="text"
                 minlength="2"
@@ -83,10 +109,11 @@
                 class="popup-edit__input popup-edit__input_type_name"
                 placeholder="Имя"
               />
-              <span class="popup-edit__name-error"></span>
+              <span class="popup-error popup-edit__name-error"></span>
             </div>
             <div class="input-container">
               <input
+                data-id="popup-edit__dscr"
                 id="user-name"
                 type="text"
                 minlength="2"
@@ -96,7 +123,9 @@
                 class="popup-edit__input popup-edit__input-dscr"
                 placeholder="О себе"
               />
-              <span class="popup-edit__info-error"></span>
+              <span
+                class="popup-error popup-edit__info-error popup-edit__dscr-error"
+              ></span>
             </div>
             <button type="submit" type class="button popup-edit__button">
               Сохранить
