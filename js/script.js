@@ -10,10 +10,6 @@ const editPopUp = document.querySelector('.popup-edit');
 const closeEditPopUp = document.querySelector('.popup-edit__close');
 const popupImage = document.querySelector('.popup-image');
 const closePopupImage = document.querySelector('.popup-image__close');
-/*
- Можно лучше:
- - Убрать неиспользуемую переменную
-*/
 const inputEditName = document.querySelector('.popup-edit__input_type_name');
 const editForm = document.querySelector('.popup-edit__form');
 const inputEditDscr = document.querySelector('.popup-edit__input-dscr');
@@ -53,8 +49,6 @@ document.querySelectorAll('.popup__form').forEach((elem) => {
     /*
      Можно лучше:
      - Удалить неиспользуемый параметр функции
-     Надо исправить:✅
-     - Функция обновления состояния кнопки должны обрабатываться вместе с валидацией инпутов.
     */
     if (elem.checkValidity()) {
       document.querySelector('.popup__button').classList.add('popup__button_validate');
@@ -64,31 +58,35 @@ document.querySelectorAll('.popup__form').forEach((elem) => {
   });
 });
 
-// Edit Form
+// Edit Form Input
 function editForms(event) {
-  /*
-    Надо исправить:✅
-    - Валидация полей должна быть описана одной функцией
-  */
   const field = event.target;
-  // console.log(event.target.dataset.id);
+
   /*
-   Надо исправить:✅
-   - Переменная объявлена без оператора const или let
+   Можно лучше:
+   - Удалить неиспользуемый параметр функции
   */
 
   //Empty or Wrong Length
   if (event.target.dataset.id !== 'popup__link') {
-    if (field.value.length == 0) {
+    if (field.value.length === 0) {
+      /*
+       Можно лучше:
+       - Использовать === для сравнения во избежание проблем с типами
+      */
       field.setCustomValidity(errorMessages.empty);
     } else if (field.value.length < 2 || field.value.length > 30) {
       field.setCustomValidity(errorMessages.wrongLength);
     } else {
       field.setCustomValidity('');
+      document.querySelector('.popup__button').classList.add('popup__button_validate');
     }
   } else {
-    if (field.value.length == 0) {
+    if (field.value.length === 0) {
       field.setCustomValidity(errorMessages.empty);
+    } else {
+      field.setCustomValidity('');
+      document.querySelector('.popup__button').classList.add('popup__button_validate');
     }
   }
 
@@ -101,10 +99,6 @@ inputEditDscr.setAttribute('value', `${userInfo.textContent}`);
 
 //Add Inputs Edit Name & Info
 function addInfoPlaceCard(eve) {
-  /*
-    Можно лучше:✅
-    - Лучше вынести document.querySelector('.popup-edit__form') в переменную
-  */
   eve.preventDefault();
 
   //Add new inputs
@@ -118,17 +112,12 @@ function addInfoPlaceCard(eve) {
 
 // Add&Remove Like
 function addLike(event) {
-  // console.log(event.target);
-  // event.target.classList.add('place-card__like-icon_liked');
   event.target.classList.toggle('place-card__like-icon_liked');
-
 };
 
 // Delete card
 function removeCard(event) {
-
   const placeCrd = event.target.closest('.place-card');
-  // console.log(placeCrd);
 
   placesList.removeChild(placeCrd);
 };
@@ -146,9 +135,8 @@ const createPlaceCard = function (name, link) {
 </div>`;
 
   const elem = document.createElement('div');
+
   elem.insertAdjacentHTML('afterbegin', markup);
-
-
   elem.querySelector('.place-card__name').textContent = name;
   elem.querySelector('.place-card__image').setAttribute('style', `background-image: url(${link})`);
   elem.querySelector('.place-card__image').dataset.url = link;
@@ -164,6 +152,10 @@ const renderPlaceCard = function (name, link) {
 
 //Click PlacesList Elements
 function clickCradElemnts(event) {
+  /*
+   Можно лучше:
+   - Изменить название CradElemnts -> CardElements
+  */
 
   //Open Image Pop-UP
   if (event.target.classList.contains('place-card__image')) {
@@ -188,7 +180,6 @@ function clickCradElemnts(event) {
 //Open Image Pop-UP
 function openPopupImg(event) {
   popupImage.classList.add('popup-image_is-opened');
-  // console.log(event.target);
   document.querySelector('.popup-image__picture').setAttribute('src', `${event.target.dataset.url}`);
 }
 
@@ -199,17 +190,18 @@ function closeImagePopup() {
 
 // Open PopUp Form
 function openPopUp(event) {
-  // console.log(event.target.dataset.id);
   document.querySelector(`.${event.target.dataset.id}`).classList.add(`${event.target.dataset.id}_is-opened`);
 };
 
 // Close PopUp Form
 function closePopUpForm(event) {
-  // console.log(event.target.dataset.id);
   document.querySelector(`.${event.target.dataset.id}`).classList.remove(`${event.target.dataset.id}_is-opened`);
+  document.querySelector('.popup__button').classList.remove('popup__button_validate');
   document.querySelector(`.${event.target.dataset.id}__form`).reset();
 
-  if (event.target.dataset.id == 'popup-edit') {
+  if (event.target.dataset.id === 'popup-edit') {
+    editInfoButton.classList.add('popup-edit__button_validate');
+
     inputEditName.setAttribute('value', `${userName.textContent}`);
     inputEditDscr.setAttribute('value', `${userInfo.textContent}`);
   }
@@ -218,10 +210,9 @@ function closePopUpForm(event) {
 
 //reset Inputs
 function resetInputs(event) {
-  // console.log(event.target.dataset.id);
   document.querySelector(`.${event.target.dataset.id}__name-error`).textContent = '';
 
-  if (event.target.dataset.id == 'popup-edit') {
+  if (event.target.dataset.id === 'popup-edit') {
     document.querySelector(`.${event.target.dataset.id}__info-error`).textContent = '';
   } else {
     document.querySelector(`.${event.target.dataset.id}__link-error`).textContent = '';
@@ -231,7 +222,6 @@ function resetInputs(event) {
 //Send Form Card
 function sendForm(event) {
   event.preventDefault();
-
   const inputs = [...form.elements]
 
   let isValidForm = true;
@@ -248,27 +238,46 @@ function sendForm(event) {
     document.querySelector('.popup__form').reset();
     document.querySelector('.popup__button').classList.remove('popup__button_validate');
   } else {
-    /*
-     - Убрать все console.log()
-    */
     return false;
   }
 }
 
 //Validation
 function validate(element) {
-  // console.log(element.id);
+  // console.log(element);
   const errorElem = document.querySelector(`#error-${element.id}`);
-  // console.log(errorElem);
+
   if (!element.checkValidity()) {
     errorElem.textContent = errorMessages.empty;
-    // console.log(errorElem.textContent);
     return false;
   }
   /*
    - Убрать ненужные комментарии
   */
   return true;
+}
+
+//Exit Form
+function exitForm(event) {
+
+  if (event.keyCode == 27) {
+    if (document.querySelector('.popup_is-opened')) {
+      document.querySelector('.popup_is-opened').classList.remove('popup_is-opened');
+      document.querySelector('.popup__button').classList.remove('popup__button_validate');
+      document.querySelector('.popup__form').reset();
+      document.querySelector('.popup__name-error').textContent = '';
+      document.querySelector('.popup__link-error').textContent = '';
+    } else if (document.querySelector('.popup-edit_is-opened')) {
+      document.querySelector('.popup-edit').classList.remove('popup-edit_is-opened');
+      document.querySelector('.popup-edit__form').reset();
+      document.querySelector('.popup-edit__name-error').textContent = '';
+      document.querySelector('.popup-edit__info-error').textContent = '';
+      inputEditName.setAttribute('value', `${userName.textContent}`);
+      inputEditDscr.setAttribute('value', `${userInfo.textContent}`);
+    } else {
+      closeImagePopup();
+    }
+  }
 }
 
 placesList.addEventListener('click', clickCradElemnts);
@@ -285,6 +294,7 @@ inputLink.addEventListener('input', editForms);
 
 editForm.addEventListener('submit', addInfoPlaceCard);
 form.addEventListener('submit', sendForm);
+document.querySelector('body').addEventListener('keydown', exitForm);
 
 
 function dataLoading(arr) {
@@ -302,17 +312,24 @@ dataLoading(initialCards);
  - Используется всплытие и делегирование событий
  - Код откомментирован
  Можно лучше:
- - Убрать все ненужные комментарии
- - Хорошей практикой структурирования кода считается сначала объявление переменных, затем функций,
- затем назначение слушателей
- - Реализовать закрытие попапа на esc
- - Попап обновления профиля должен принимать текущие значения при открытии
- - Объеденить функции закрытия и открытия попапов
+ - Убрать все ненужные комментарии (закомментированные участки кода)✅
+ - Реализовать закрытие попапа на esc✅
+ - Попап обновления профиля должен принимать текущие значения при открытии✅
+ - Объеденить функции закрытия и открытия попапов😔
+ - Заменить все '==' на '===' во избежании проблем с типами✅
  Надо исправить:
- - //Валидация полей должна быть описана одной функцией. Назначены события инпут должны быть на две формы.✅
- - Баг #1✅
- 1) Открываем попап "Новое место"
- 2) Вписываем текст в инпуты до моммента появления ошибок валидации
+ Баг #1✅
+ 1) Открываем попап "Редактирования профиля"
+ 2) Удаляем текст из инпутов
  3) Закрываем попап через крестик
- 4) Переоткрываем попап -> ошибки валидации не ушли
+ 4) Переоткрываем попап -> кнопка заблокированна, при нажатии возникают ошибки валидации
+ Баг #2✅
+ 1) Открываем попап добавления карточки
+ 2) Добавляем карточку
+ 3) Переоткрываем попап -> кнопка добавления не заблокирована. но добавить нельзя
+ Баг #3✅
+ 1) Открываем попап добавления карточки
+ 2) Добавляем текст во второй инпут до исчезновения ошибок валидации
+ 3) Удаляем текст до появления ошибки валидации "Это обязательное поле"
+ 4) Добавляем валидную ссылку -> ошибка валидации не ушла
  */
