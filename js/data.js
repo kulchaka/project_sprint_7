@@ -1,41 +1,41 @@
 const initialCards = [{
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+        name: 'Cozumel, Mexico',
+        link: 'https://www.scubadivingearth.com/wp-content/uploads/2018/07/Top-ten-dive-sites-in-the-world-by-Jacques-Cousteau-Cozumel-Mexico.png'
     },
     {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+        name: 'Sipadan, Borneo Malaysia',
+        link: 'https://www.scubadivingearth.com/wp-content/uploads/2018/07/Top-ten-dive-sites-in-the-world-by-Jacques-Cousteau-Sipadan-Borneo-Malaysia.png'
     },
     {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+        name: 'Poor Knights Islands, New Zealand',
+        link: 'https://www.scubadivingearth.com/wp-content/uploads/2018/07/Top-ten-dive-sites-in-the-world-by-Jacques-Cousteau-Poor-Knights-Islands-New-Zealand.png'
     },
     {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+        name: 'Heron Island, Australia',
+        link: 'https://www.scubadivingearth.com/wp-content/uploads/2018/07/Top-ten-dive-sites-in-the-world-by-Jacques-Cousteau-Heron-Island.png'
     },
     {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+        name: 'Aliwal Shoal, South Africa',
+        link: 'https://www.scubadivingearth.com/wp-content/uploads/2018/07/Top-ten-dive-sites-in-the-world-by-Jacques-Cousteau-Aliwal-Shoal-South-Africa.png'
     },
     {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+        name: 'Richelieu Rock, Thailand',
+        link: 'https://www.scubadivingearth.com/wp-content/uploads/2018/07/Top-ten-dive-sites-in-the-world-by-Jacques-Cousteau-Richelieu-Rock-Thailand.png'
     },
     {
-        name: 'Нургуш',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/khrebet-nurgush.jpg'
+        name: "Sha'b Rumi, Sudan",
+        link: 'https://www.scubadivingearth.com/wp-content/uploads/Top-ten-dive-sites-in-the-world-by-Jacques-Cousteau-Sha’b-Rumi-Sudan.png'
     },
     {
-        name: 'Тулиновка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/tulinovka.jpg'
+        name: 'Vancouver Island, Canada',
+        link: 'https://www.scubadivingearth.com/wp-content/uploads/2018/07/Top-Ten-Dive-Sites-In-The-World-By-Jacques-Cousteau-Vancouver-Island-Canada.png'
     },
     {
-        name: 'Остров Желтухина',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/zheltukhin-island.jpg'
+        name: 'Cocos Island, Costa Rica',
+        link: 'https://www.scubadivingearth.com/wp-content/uploads/2018/07/Top-ten-dive-sites-in-the-world-by-Jacques-Cousteau-Cocos-Island-Costa-Rica.png'
     },
     {
-        name: 'Владивосток',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/vladivostok.jpg'
+        name: 'Jacques Cousteau Truk Lagoon - Lagoon of Lost Ships',
+        link: 'https://www.scubadivingearth.com/wp-content/uploads/Rio-de-Janeiro-Maru-Wreck-Truk-or-Chuuk-Lagoon-With-Name-Plake.png'
     }
 ];

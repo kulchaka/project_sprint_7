@@ -22,9 +22,9 @@ const inputsInfoEdit = document.querySelector('.popup-edit__input-dscr');
 const submit = document.querySelector('#button');
 
 const errorMessages = {
-  empty: 'Это обязательное поле',
-  wrongLength: 'Должно быть от 2 до 30 символов',
-  wrongLink: 'Здесь должна быть ссылка'
+  empty: 'This is a required field',
+  wrongLength: 'Must be 2 to 30 characters',
+  wrongLink: 'There should be a link'
 };
 
 //Active Button
@@ -191,7 +191,23 @@ function closeImagePopup() {
 // Open PopUp Form
 function openPopUp(event) {
   document.querySelector(`.${event.target.dataset.id}`).classList.add(`${event.target.dataset.id}_is-opened`);
-};
+
+  if (event.target.dataset.id === 'popup-edit') {
+    // console.log(editForm);
+    const input = [...editForm.elements];
+
+    input.forEach((elem) => {
+      if (elem.id !== editInfoButton.id) {
+        if (elem.value.length !== 0) {
+          console.log('Yes');
+
+        } else {
+          console.log('No');
+        }
+      }
+    });
+  }
+}
 
 // Close PopUp Form
 function closePopUpForm(event) {
@@ -318,7 +334,7 @@ dataLoading(initialCards);
  - Объеденить функции закрытия и открытия попапов😔
  - Заменить все '==' на '===' во избежании проблем с типами✅
  Надо исправить:
- Баг #1✅
+ Баг #1
  1) Открываем попап "Редактирования профиля"
  2) Удаляем текст из инпутов
  3) Закрываем попап через крестик

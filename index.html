@@ -10,7 +10,7 @@
   <body>
     <div class="root">
       <header class="header root__section">
-        <img src="./images/logo.svg" alt="mesto logo" class="logo" />
+        <img src="./images/logo_2.png" alt="mesto logo" class="logo" />
       </header>
       <div class="profile root__section">
         <div class="user-info">
@@ -53,7 +53,7 @@
             alt=""
             class="popup__close"
           />
-          <h3 class="popup__title">Новое место</h3>
+          <h3 class="popup__title">New Place</h3>
           <form id="form" novalidate class="popup__form" name="new">
             <input
               data-id="popup__name"
@@ -62,7 +62,7 @@
               required
               name="name"
               class="popup__input popup__input_type_name"
-              placeholder="Название"
+              placeholder="Title"
             />
             <span id="error-name" class="popup-error popup__name-error"></span>
             <input
@@ -72,7 +72,7 @@
               required
               name="link"
               class="popup__input popup__input_type_link-url"
-              placeholder="Ссылка на картинку"
+              placeholder="Image link"
             />
             <span id="error-link" class="popup-error popup__link-error"></span>
             <button
@@ -95,7 +95,7 @@
             alt=""
             class="popup-edit__close"
           />
-          <h3 class="popup-edit__title">Редактировать профиль</h3>
+          <h3 class="popup-edit__title">Edit Profile</h3>
           <form class="popup-edit__form" name="new">
             <div class="input-container">
               <input
@@ -107,7 +107,7 @@
                 required
                 name="name"
                 class="popup-edit__input popup-edit__input_type_name"
-                placeholder="Имя"
+                placeholder="Name"
               />
               <span class="popup-error popup-edit__name-error"></span>
             </div>
@@ -121,14 +121,18 @@
                 required
                 name="link"
                 class="popup-edit__input popup-edit__input-dscr"
-                placeholder="О себе"
+                placeholder="About yourself"
               />
               <span
                 class="popup-error popup-edit__info-error popup-edit__dscr-error"
               ></span>
             </div>
-            <button type="submit" type class="button popup-edit__button">
-              Сохранить
+            <button
+              type="submit"
+              id="popup-edit__button"
+              class="button popup-edit__button"
+            >
+              Save
             </button>
           </form>
         </div>
